@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         <div className='flex flex-row'>
           <Menu/>
 
-          <main className='w-screen h-screen bg-[#f8f7ff] p-4'>
+          <main className='w-screen h-screen bg-[#f8f7ff]'>
             {children}
           </main>
 
