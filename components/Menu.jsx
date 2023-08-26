@@ -20,7 +20,7 @@ const menuRoutes = [
     },
     {
         ruta: '/densidad',
-        nombre: 'COMPOSICION CORPORAL',
+        nombre: 'COMPOSICIÓN CORPORAL',
         icono: <IconBarbell/>
 
     }
