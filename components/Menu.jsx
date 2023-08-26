@@ -1,4 +1,4 @@
-import { IconArmchair2, IconInfoHexagon } from "@tabler/icons-react"
+import { IconArmchair2, IconBarbell, IconInfoHexagon } from "@tabler/icons-react"
 import Link from "next/link"
 
 import { Lato } from 'next/font/google'
@@ -21,7 +21,7 @@ const menuRoutes = [
     {
         ruta: '/densidad',
         nombre: 'COMPOSICION CORPORAL',
-        icono: <IconInfoHexagon size={21}  />
+        icono: <IconBarbell/>
 
     }
 ]
