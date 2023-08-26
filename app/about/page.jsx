@@ -51,7 +51,7 @@ const About = () => {
                     <div className='bg-[#003459] h-full items-center justify-center flex'>
                         <div className='mx-auto p-4 rounded-full bg-[#00A8E8] shadow-lg w-fit animate-float'>
                             <div className=" bg-cover bg-center bg-no-repeat  bg-[url(https://i.pinimg.com/1200x/6f/59/6d/6f596de33c9c7f97ac41c1f1c0596695.jpg)]
-                             w-96 h-96 rounded-full text-white">
+                             w-96 h-96  rounded-full text-white">
                              </div>
                         </div>
                     </div>

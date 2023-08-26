@@ -17,13 +17,19 @@ const menuRoutes = [
         nombre: 'ACERCA DE',
         icono: <IconInfoHexagon size={21}  />
 
+    },
+    {
+        ruta: '/densidad',
+        nombre: 'COMPOSICION CORPORAL',
+        icono: <IconInfoHexagon size={21}  />
+
     }
 ]
 
 
 function Menu()  {
   return (
-    <div className="text-[#fff] w-1/6 h-screen  bg-[#000814] text-left p-3 flex flex-col gap-y-1">
+    <div className="text-[#fff] w-fit h-screen  bg-[#000814] text-left p-3 flex flex-col gap-y-1">
         <h1 className={`mb-2 text-xl font-semibold text-center ${lato.className}`}>Menú</h1>
 
         <ul >
