@@ -46,16 +46,13 @@ export const Densidad = () => {
 
     if(genero === 'hombre'){
       resultado = 1.1765 - (0.0744 * Math.log10(sumaPliegues) )
-      
-      setDensidad(resultado.toFixed(3))
     } else {
       // mujer
-
       resultado = 1.1567 - (0.0717 * Math.log10(sumaPliegues) )
       
-
-      setDensidad(resultado.toFixed(3))
     }
+
+    setDensidad(resultado)
 
     const grasa =  (495 / resultado) - 450 
 
@@ -76,7 +73,7 @@ export const Densidad = () => {
           <form onSubmit={handleSubmit}>
 
                   {/* Datos personales */}
-                  <h2 className='font-medium text-gray-500 mb-2 text-lg'>Datos Personales</h2>
+                  <h2 className='font-medium text-gray-500 mb-2'>Datos Personales</h2>
                  <div className='grid grid-cols-2 gap-x-6 gap-y-2 mb-4 font-bold'>
                       
                    <div className='flex flex-col'>
@@ -116,7 +113,7 @@ export const Densidad = () => {
                     </div>
                  </div>
 
-                 <h2 className='font-medium text-gray-500 mb-2 text-lg'>Pliegues</h2>
+                 <h2 className='font-medium text-gray-500 mb-2'>Pliegues</h2>
                    <div className='grid grid-cols-2 gap-x-6 gap-y-2 font-bold'>
                      <div className='flex flex-col relative'>
                        <label htmlFor='bicep'>Bicep</label>
@@ -144,7 +141,7 @@ export const Densidad = () => {
           </form>
 
          { densidad && <div>
-           <h2>Densidad corporal: {densidad}</h2>
+           <h2>Densidad corporal: {densidad.toFixed(3)}</h2>
            <h2>Porcentaje graso: { porcentajeGraso }%</h2>
          </div> }
        
