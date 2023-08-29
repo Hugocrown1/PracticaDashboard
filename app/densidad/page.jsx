@@ -49,16 +49,13 @@ export const Densidad = () => {
     let resultado
     let residual
 
-    //TODO: Masa osea
+    
     const osea = ( Math.pow( Math.pow(talla, 2) * femur * bistiloideo * 400, 0.712 ) * 3.02 )
-
     setMasaOsea(osea)
 
     if(genero === 'hombre'){
       resultado = 1.1765 - (0.0744 * Math.log10(sumaPliegues) )
 
-
-      //TODO: Masa residual
       residual = peso * 0.24
 
     } else {
@@ -85,7 +82,7 @@ export const Densidad = () => {
   return (
     <div className='flex flex-col bg-[#003459] items-center justify-center p-6 h-screen'>
       
-      <div className='bg-[#ffff] text-black rounded-md w-2/4 h-full mx-auto px-6 py-4 shad'>
+      <div className='bg-[#ffff] text-black rounded-md w-3/6 h-fit mx-auto px-6 py-4 shad'>
       <h1 className='text-xl font-bold mb-5'>COMPOSICIÓN CORPORAL</h1>
         
           
@@ -181,9 +178,9 @@ export const Densidad = () => {
            <br />
            <span>Porcentaje graso: { porcentajeGraso }%</span>
            <br />
-           <span>{ masaOsea.toFixed(2) }</span>
+           <span>Masa ósea: { masaOsea.toFixed(2) } kg</span>
            <br />
-           <span>{ masaResidual } kg</span>
+           <span>Masa residual: { masaResidual } kg</span>
          </div> }
        
 
