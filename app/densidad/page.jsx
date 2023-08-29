@@ -12,11 +12,15 @@ export const Densidad = () => {
     bicep: '',
     tricep: '',
     subscapular: '',
-    supraileaco: ''
+    supraileaco: '',
+    femur: '',
+    bistiloideo: ''
   })
 
   const [densidad, setDensidad] = useState(null)
   const [porcentajeGraso, setPorcentajeGraso] = useState(null)
+  const [masaOsea, setMasaOsea] = useState(null)
+  const [masaResidual, setMasaResidual] = useState(null)
  
 
   const handleInputChange = (e) => {
@@ -38,19 +42,34 @@ export const Densidad = () => {
     e.preventDefault()
 
     //Valores de los inputs
-    const { genero, bicep, tricep, subscapular, supraileaco } = inputValues
+    const { genero, bicep, tricep, subscapular, supraileaco, femur, bistiloideo, talla, peso } = inputValues
 
     const sumaPliegues = tricep + bicep + subscapular + supraileaco
 
     let resultado
+    let residual
+
+    //TODO: Masa osea
+    const osea = ( Math.pow( Math.pow(talla, 2) * femur * bistiloideo * 400, 0.712 ) * 3.02 )
+
+    setMasaOsea(osea)
 
     if(genero === 'hombre'){
       resultado = 1.1765 - (0.0744 * Math.log10(sumaPliegues) )
+
+
+      //TODO: Masa residual
+      residual = peso * 0.24
+
     } else {
       // mujer
       resultado = 1.1567 - (0.0717 * Math.log10(sumaPliegues) )
+
+      residual = peso * 0.21
       
     }
+
+    setMasaResidual(residual)
 
     setDensidad(resultado)
 
@@ -66,7 +85,7 @@ export const Densidad = () => {
   return (
     <div className='flex flex-col bg-[#003459] items-center justify-center p-6 h-screen'>
       
-      <div className='bg-[#ffff] text-black rounded-md w-2/4 h-3/4 mx-auto px-6 py-4 shad'>
+      <div className='bg-[#ffff] text-black rounded-md w-2/4 h-full mx-auto px-6 py-4 shad'>
       <h1 className='text-xl font-bold mb-5'>COMPOSICIÓN CORPORAL</h1>
         
           
@@ -79,15 +98,15 @@ export const Densidad = () => {
                    <div className='flex flex-col'>
                     <h2>Genero</h2>
 
-                    <div className='flex space-x-12 justify-center items-center pt-2'>
+                    <div className='flex space-x-10 justify-center items-center pt-2'>
 
                       <div className='flex flex-row space-x-4'>
-                        <label className='font-normal' htmlFor="genero-hombre">Hombre</label>
+                        <label className='font-normal' htmlFor="genero-hombre">Masculino</label>
                         <input className='form-input ' type="radio"  name='genero' value='hombre' required onChange={handleInputChange} />
                       </div>
 
                       <div className='flex flex-row space-x-4'>
-                        <label className='font-normal' htmlFor="genero-mujer">Mujer</label>
+                        <label className='font-normal' htmlFor="genero-mujer">Femenino</label>
                         <input className='form-input ' type="radio"  name='genero' value='mujer' required onChange={handleInputChange}  />
                       </div>
 
@@ -98,30 +117,47 @@ export const Densidad = () => {
                                
                     <div className='flex flex-col relative'>
                       <label htmlFor="peso">Peso</label>
-                      <input className='form-input' type="number" name='peso' value={inputValues.peso} placeholder='Ingrese su peso' onChange={handleInputChange}/>
+                      <input className='form-input' type="number" name='peso' value={inputValues.peso} placeholder='Ingrese su peso' required onChange={handleInputChange}/>
                       <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">kg</span>
                     </div>
                                
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col relative'>
                       <label htmlFor="talla">Talla</label>
-                      <input className='form-input' type="number" name='talla' value={inputValues.talla} placeholder='Ingrese su talla' onChange={handleInputChange}/>
+                      <input className='form-input' type="number" name='talla' value={inputValues.talla} placeholder='Ingrese su talla' required onChange={handleInputChange}/>
+                      <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">m</span>
                     </div>
                                
                     <div className='flex flex-col'>
                       <label htmlFor="edad">Edad</label>
-                      <input className='form-input' type="number" name='edad' value={inputValues.edad} placeholder='Ingrese su edad' onChange={handleInputChange}/>
+                      <input className='form-input' type="number" name='edad' value={inputValues.edad} placeholder='Ingrese su edad' required onChange={handleInputChange}/>
                     </div>
+
+                    
                  </div>
 
                  <h2 className='font-medium text-gray-500 mb-2'>Pliegues</h2>
                    <div className='grid grid-cols-2 gap-x-6 gap-y-2 font-bold'>
+
+                   <div className='flex flex-col relative'>
+                       <label htmlFor='femur'>Femur</label>
+                       <input className='form-input' type="number" name='femur' value={inputValues.femur} required onChange={handleInputChange}/>
+                       <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">m</span>
+                     </div>
+
+                    <div className='flex flex-col relative'>
+                       <label htmlFor='bistiloideo'>Bistiloideo</label>
+                       <input className='form-input' type="number" name='bistiloideo' value={inputValues.bistiloideo} required onChange={handleInputChange}/>
+                       <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">m</span>
+                     </div>
+
                      <div className='flex flex-col relative'>
-                       <label htmlFor='bicep'>Bicep</label>
+                       <label htmlFor='bicep'>Bicipital</label>
                        <input className='form-input' type="number" name='bicep' value={inputValues.bicep} required onChange={handleInputChange}/>
                        <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">mm</span>
                      </div>
+
                      <div className='flex flex-col relative'>
-                       <label htmlFor='tricep'>Tricep</label>
+                       <label htmlFor='tricep'>Tricipital</label>
                        <input className='form-input' type="number" name='tricep' value={inputValues.tricep} required onChange={handleInputChange}/>
                        <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">mm</span>
                      </div>
@@ -140,9 +176,14 @@ export const Densidad = () => {
                    <button className='mt-2 p-2 bg-[#00b4d8] text-black rounded-md' type='submit'>Calcular</button>
           </form>
 
-         { densidad && <div>
-           <h2>Densidad corporal: {densidad.toFixed(3)}</h2>
-           <h2>Porcentaje graso: { porcentajeGraso }%</h2>
+         { densidad && <div >
+           <span>Densidad corporal: {densidad.toFixed(3)}</span>
+           <br />
+           <span>Porcentaje graso: { porcentajeGraso }%</span>
+           <br />
+           <span>{ masaOsea.toFixed(2) }</span>
+           <br />
+           <span>{ masaResidual } kg</span>
          </div> }
        
 
