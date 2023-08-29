@@ -115,13 +115,13 @@ export const Densidad = () => {
                     <div className='flex flex-col relative'>
                       <label htmlFor="peso">Peso</label>
                       <input className='form-input' type="number" name='peso' value={inputValues.peso} placeholder='Ingrese su peso' required onChange={handleInputChange}/>
-                      <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">kg</span>
+                      <span className="input-extent">kg</span>
                     </div>
                                
                     <div className='flex flex-col relative'>
                       <label htmlFor="talla">Talla</label>
                       <input className='form-input' type="number" name='talla' value={inputValues.talla} placeholder='Ingrese su talla' required onChange={handleInputChange}/>
-                      <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">m</span>
+                      <span className="input-extent">m</span>
                     </div>
                                
                     <div className='flex flex-col'>
@@ -138,35 +138,35 @@ export const Densidad = () => {
                    <div className='flex flex-col relative'>
                        <label htmlFor='femur'>Femur</label>
                        <input className='form-input' type="number" name='femur' value={inputValues.femur} required onChange={handleInputChange}/>
-                       <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">m</span>
+                       <span className="input-extent">m</span>
                      </div>
 
                     <div className='flex flex-col relative'>
-                       <label htmlFor='bistiloideo'>Bistiloideo</label>
+                       <label htmlFor='bistiloideo'>Biestiloideo</label>
                        <input className='form-input' type="number" name='bistiloideo' value={inputValues.bistiloideo} required onChange={handleInputChange}/>
-                       <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">m</span>
+                       <span className="input-extent">m</span>
                      </div>
 
                      <div className='flex flex-col relative'>
                        <label htmlFor='bicep'>Bicipital</label>
                        <input className='form-input' type="number" name='bicep' value={inputValues.bicep} required onChange={handleInputChange}/>
-                       <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">mm</span>
+                       <span className="input-extent">mm</span>
                      </div>
 
                      <div className='flex flex-col relative'>
                        <label htmlFor='tricep'>Tricipital</label>
                        <input className='form-input' type="number" name='tricep' value={inputValues.tricep} required onChange={handleInputChange}/>
-                       <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">mm</span>
+                       <span className="input-extent">mm</span>
                      </div>
                      <div className='flex flex-col relative'>
                        <label htmlFor='subscapular'>Subscapular</label>
                        <input className='form-input' type="number" name='subscapular' value={inputValues.subscapular} required onChange={handleInputChange}/>
-                       <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">mm</span>
+                       <span className="input-extent">mm</span>
                      </div>
                       <div className='flex flex-col relative'>
                         <label htmlFor='supraileaco'>Supraileaco</label>
                         <input className='form-input' type="number" name='supraileaco' value={inputValues.supraileaco} required onChange={handleInputChange}/>
-                        <span className="absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end">mm</span>
+                        <span className="input-extent">mm</span>
                       </div>
                    </div>
 
