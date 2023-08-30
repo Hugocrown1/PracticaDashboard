@@ -210,21 +210,22 @@ export const Densidad = () => {
       </div>
 
 
-     { densidad && <div className='w-full bg-white h-full p-4 items-center justify-center rounded-md'>
+     { densidad && <div className='w-full bg-white h-fit p-4 items-center justify-center rounded-md'>
         
         <table className='w-full text-center'>
-          <tr>
-            <th>
-              Componente
-            </th>
-            <th>
-              Porcentaje
-            </th>
-
-            <th>
-              kg
-            </th>
-          </tr>
+          <thead>
+            <tr>
+              <th>
+                Componente
+              </th>
+              <th>
+                Porcentaje
+              </th>
+              <th>
+                kg
+              </th>
+            </tr>
+          </thead>
           <tbody>
             <tr>
               <td>
@@ -235,7 +236,7 @@ export const Densidad = () => {
               </td>
               <td>
                 {/* Este se saca */}
-                { (inputValues.peso * ( porcentajeGraso / 100 )).toFixed(2) }
+                { (inputValues.peso * ( porcentajeGraso / 100 )).toFixed(2) } kg
               </td>
             </tr>
 
@@ -272,10 +273,10 @@ export const Densidad = () => {
                 Masa muscular
               </td>
               <td>
-                { sumatoriaMasa }
+                { sumatoriaMasa.toFixed(2) } %
               </td>
               <td>
-                { residualResta }
+                { residualResta.toFixed(2) } kg
               </td>
             </tr>
 
