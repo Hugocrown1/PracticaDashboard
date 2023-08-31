@@ -18,12 +18,21 @@ export const Densidad = () => {
   })
 
   const [densidad, setDensidad] = useState(null)
-  const [porcentajeGraso, setPorcentajeGraso] = useState(null)
-  const [masaOsea, setMasaOsea] = useState(null)
-  const [masaResidual, setMasaResidual] = useState(null)
 
- const [sumatoriaMasa, setSumatoriaMasa] = useState(null)
- const [residualResta, setResidualResta] = useState(null)
+  const [porcentajes, setPorcentajes] = useState({
+    masa_osea: null,
+    masa_grasa: null,
+    masa_residual: null
+  })
+
+  const [masas, setMasas] = useState({
+      masa_osea: null,
+      masa_grasa: null,
+      masa_residual: null
+    
+  })
+
+ 
  
 
   const handleInputChange = (e) => {
@@ -54,8 +63,12 @@ export const Densidad = () => {
 
     
     const osea = ( Math.pow( Math.pow(talla, 2) * (femur/100) * (bistiloideo/100) * 400, 0.712 ) * 3.02 )
-    setMasaOsea(osea)
+    setMasas((prevValues) => ({
+      ...prevValues,
+      masa_osea: osea
+    }))
 
+   
     if(genero === 'hombre'){
       resultado = 1.1765 - (0.0744 * Math.log10(sumaPliegues) )
 
@@ -68,31 +81,39 @@ export const Densidad = () => {
       residual = peso * 0.21
       
     }
-
-    setMasaResidual(residual)
+    setMasas((prevValues) => ({
+      ...prevValues,
+      masa_residual: residual
+    }))
 
     setDensidad(resultado)
 
     const grasa =  (495 / resultado) - 450 
-
-    setPorcentajeGraso(grasa.toFixed(2))
+    setPorcentajes((prevValues) => ({
+      ...prevValues,
+      masa_grasa: grasa
+    }))
+   
 
     //Sumatoria porcentajes
     const porcentajeMasaOsea = osea * 100 / peso
+    setPorcentajes((prevValues) => ({
+      ...prevValues,
+      masa_osea: porcentajeMasaOsea
+    }))
+
     const porcentajeMasaResidual = residual * 100 / peso
+    setPorcentajes((prevValues) => ({
+      ...prevValues,
+      masa_residual: porcentajeMasaResidual
+    }))
 
-    const porcentajeMasaMuscular = 100 - (porcentajeMasaOsea + porcentajeMasaResidual + grasa)
 
-    setSumatoriaMasa(porcentajeMasaMuscular)
-
-    //Resta de masas
     const masaGrasaKilos = peso * ( grasa / 100 )
-    const masaResidualKilos = peso - ( residual + osea + masaGrasaKilos )
-
-    setResidualResta(masaResidualKilos)
-
-
-
+    setMasas((prevValues) => ({
+      ...prevValues,
+      masa_grasa: masaGrasaKilos
+    }))
 
 
     
@@ -101,10 +122,10 @@ export const Densidad = () => {
 
 
   return (
-    <div className='grid grid-cols-2 bg-[#003459] items-center justify-center p-6 h-screen'>
+    <div className='grid grid-cols-2 gap-x-6 bg-[#003459] items-center justify-center p-8 h-screen'>
       
-      <div className='bg-[#ffff] text-black rounded-md w-fit h-fit mx-auto px-6 py-4 shad'>
-      <h1 className='text-xl font-bold mb-5'>COMPOSICIÓN CORPORAL</h1>
+      <div className='bg-[#ffff] text-black rounded-md w-full h-fit mx-auto px-6 py-4 shadow-lg'>
+      <h1 className='text-xl font-bold mb-5'>Composición corporal</h1>
         
           
           <form onSubmit={handleSubmit}>
@@ -116,14 +137,14 @@ export const Densidad = () => {
                    <div className='flex flex-col'>
                     <h2>Genero</h2>
 
-                    <div className='flex space-x-10 justify-center items-center pt-2'>
+                    <div className='flex gap-x-6 justify-center items-center pt-2'>
 
-                      <div className='flex flex-row space-x-4'>
+                      <div className='flex flex-row space-x-2'>
                         <label className='font-normal' htmlFor="genero-hombre">Masculino</label>
                         <input className='form-input ' type="radio"  name='genero' value='hombre' required onChange={handleInputChange} />
                       </div>
 
-                      <div className='flex flex-row space-x-4'>
+                      <div className='flex flex-row space-x-2'>
                         <label className='font-normal' htmlFor="genero-mujer">Femenino</label>
                         <input className='form-input ' type="radio"  name='genero' value='mujer' required onChange={handleInputChange}  />
                       </div>
@@ -156,17 +177,7 @@ export const Densidad = () => {
                  <h2 className='font-medium text-gray-500 mb-2'>Pliegues</h2>
                    <div className='grid grid-cols-2 gap-x-6 gap-y-2 font-bold'>
 
-                   <div className='flex flex-col relative'>
-                       <label htmlFor='femur'>Femur</label>
-                       <input className='form-input' type="number" name='femur' value={inputValues.femur} required onChange={handleInputChange}/>
-                       <span className="input-extent">cm</span>
-                     </div>
-
-                    <div className='flex flex-col relative'>
-                       <label htmlFor='bistiloideo'>Biestiloideo</label>
-                       <input className='form-input' type="number" name='bistiloideo' value={inputValues.bistiloideo} required onChange={handleInputChange}/>
-                       <span className="input-extent">cm</span>
-                     </div>
+                   
 
                      <div className='flex flex-col relative'>
                        <label htmlFor='bicep'>Bicipital</label>
@@ -189,99 +200,101 @@ export const Densidad = () => {
                         <input className='form-input' type="number" name='supraileaco' value={inputValues.supraileaco} required onChange={handleInputChange}/>
                         <span className="input-extent">mm</span>
                       </div>
+
+                      <div className='flex flex-col relative'>
+                       <label htmlFor='femur'>Femur</label>
+                       <input className='form-input' type="number" name='femur' value={inputValues.femur} required onChange={handleInputChange}/>
+                       <span className="input-extent">cm</span>
+                     </div>
+
+                    <div className='flex flex-col relative'>
+                       <label htmlFor='bistiloideo'>Biestiloideo</label>
+                       <input className='form-input' type="number" name='bistiloideo' value={inputValues.bistiloideo} required onChange={handleInputChange}/>
+                       <span className="input-extent">cm</span>
+                     </div>
+
                    </div>
 
                    <button className='mt-2 p-2 bg-[#00b4d8] text-black rounded-md' type='submit'>Calcular</button>
           </form>
 
-         { densidad && <div >
-           <span>Densidad corporal: {densidad.toFixed(3)}</span>
-           <br />
-           <span>Porcentaje graso: { porcentajeGraso }%</span>
-           <br />
-           <span>Masa ósea: { masaOsea.toFixed(2) } kg</span>
-           <br />
-           <span>Masa residual: { masaResidual } kg</span>
-         </div> }
-       
-
-
-
       </div>
 
 
-     { densidad && <div className='w-full bg-white h-fit p-4 items-center justify-center rounded-md'>
+     { densidad && <div className='w-3/4 bg-white h-fit p-4 rounded-md'>
+     <h1 className='text-xl font-bold mb-2'>Resultados</h1>
         
-        <table className='w-full text-center'>
+        <table className='table-auto w-full text-left items-center border-collapse border-y mb-2 '>
           <thead>
             <tr>
-              <th>
+              <th className='p-2'>
                 Componente
               </th>
               <th>
                 Porcentaje
               </th>
               <th>
-                kg
+                Kilogramos
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                Masa Grasa
+            <tr className='border-y'>
+              <td className='p-2'>
+                Masa grasa
               </td>
               <td>
-                { porcentajeGraso } %
+                { porcentajes.masa_grasa.toFixed(2) } %
               </td>
               <td>
                 {/* Este se saca */}
-                { (inputValues.peso * ( porcentajeGraso / 100 )).toFixed(2) } kg
+                { masas.masa_grasa.toFixed(2) } kg
               </td>
             </tr>
 
-            <tr>
-              <td>
+            <tr className='border-y'>
+              <td className='p-2'>
                 Masa osea
               </td>
               <td>
                 
-                { ( masaOsea * 100  / inputValues.peso).toFixed(2) } %
+                { porcentajes.masa_osea.toFixed(2) } %
               </td>
               <td>
-                { masaOsea.toFixed(2) } kg
+                { masas.masa_osea.toFixed(2) } kg
               </td>
             </tr>
 
-            <tr>
-              <td>
+            <tr className='border-y'>
+              <td className='p-2'>
                 Masa residual
               </td>
 
               <td>
                 
-                { masaResidual * 100 / inputValues.peso } %
+                { porcentajes.masa_residual } %
               </td>
 
               <td>
-                { masaResidual } kg
+                { masas.masa_residual } kg
               </td>
             </tr>
 
             <tr>
-              <td>
+              <td className='p-2'>
                 Masa muscular
               </td>
               <td>
-                { sumatoriaMasa.toFixed(2) } %
+                { (100 - (porcentajes.masa_grasa + porcentajes.masa_osea + porcentajes.masa_residual)).toFixed(2) } %
               </td>
               <td>
-                { residualResta.toFixed(2) } kg
+                { ( inputValues.peso - ( masas.masa_grasa + masas.masa_osea + masas.masa_residual ) ).toFixed(2) } kg
               </td>
             </tr>
 
           </tbody>
         </table>
+        <span className='p-2 font-bold'> Densidad corporal: { densidad.toFixed(3) } </span>
       </div> }
     </div>
   )
