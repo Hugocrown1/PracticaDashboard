@@ -128,7 +128,7 @@ export const FormularioCompCorporal = ({ calcularDensidad }) => {
 
                    </div>
 
-                   <button className='mt-2 p-2 bg-[#00b4d8] text-black rounded-md' type='submit'>Calcular</button>
+                   <button className='mt-4 p-2 bg-[#00b4d8] text-black rounded-md' type='submit'>Calcular</button>
           </form>
 
       </div>

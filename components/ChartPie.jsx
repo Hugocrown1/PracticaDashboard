@@ -11,7 +11,7 @@ export const ChartPie = ({ porcentajes }) => {
     
     useEffect(() => {
       const {masa_grasa, masa_osea, masa_residual, masa_muscular} = porcentajes
-    console.log(masa_grasa);
+   
     
     const ctx = document.getElementById('myChart');
 
@@ -22,19 +22,25 @@ export const ChartPie = ({ porcentajes }) => {
      const newChart = new Chart(ctx, {
       type: 'pie',
       data: {
-        labels: ['Masa grasa', 'Masas osea', 'Masa residual', 'Masa muscular'],
+        labels: ['Masa grasa', 'Masa osea', 'Masa residual', 'Masa muscular'],
         datasets: [{
-          label: 'Porcentaje',
-          data: [masa_grasa, masa_osea, masa_residual, masa_muscular],
-          borderWidth: 1
+          label: '% Porcentaje',
+          data: [masa_grasa.toFixed(2), masa_osea.toFixed(2), masa_residual, masa_muscular.toFixed(2)],
+          backgroundColor: ['yellow', 'aqua', 'pink', 'lightgreen'],
+          borderWidth: 1,
+          hoverOffset: 10
         }]
       },
       options: {
-        scales: {
-          y: {
-            beginAtZero: true
+        
+        plugins: {
+          
+          subtitle: {
+              display: true,
+              text: 'Porcentajes de grasa corporal'
           }
-        }
+      }
+       
       }
     });
 
@@ -43,10 +49,10 @@ export const ChartPie = ({ porcentajes }) => {
     
     
   return (
-    <div className=' rounded-md bg-white flex flex-col p-4 my-4'>
+    <div className='relative w-4/6 h-auto rounded-md bg-white flex flex-col p-4 my-auto'>
     <h1 className='text-xl font-bold mb-2'>Gráfica de pastel</h1>
     
-      <canvas id='myChart' width='200' height='200'></canvas>
+      <canvas id='myChart' ></canvas>
     </div>
   )
 }

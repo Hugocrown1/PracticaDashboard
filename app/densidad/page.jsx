@@ -4,16 +4,10 @@ import { ChartPie } from '@/components/ChartPie'
 import { FormularioCompCorporal } from '@/components/FormularioCompCorporal'
 import { TablaComposicion } from '@/components/TablaComposicion'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 export const Densidad = () => {
   
-
- 
-
- 
-
-
 
   const [densidad, setDensidad] = useState(null)
 
@@ -92,15 +86,17 @@ export const Densidad = () => {
   return (
     <div className='grid grid-cols-2 gap-x-6 bg-[#003459] items-center justify-center p-8 h-screen'>
       
-     <FormularioCompCorporal calcularDensidad={calcularDensidad}/>
-
+     
+       <FormularioCompCorporal calcularDensidad={calcularDensidad}/>
+       
 
      { densidad && 
       
-        <div className='flex flex-col items-center justify-center h-fit'>
-          <TablaComposicion porcentajes={porcentajes} masas={masas} densidad={densidad}/>
-          <ChartPie porcentajes={porcentajes}/>
-        </div>
+          <div className='flex flex-col gap-y-4'>
+            <ChartPie porcentajes={porcentajes}/>
+            <TablaComposicion porcentajes={porcentajes} masas={masas} densidad={densidad}/>
+          </div>
+        
         
       }
     </div>
