@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-export const TablaComposicion = ({ porcentajes, masas, densidad }) => {
+export const Table = ({ percentages, masses, density }) => {
   
 
   
@@ -30,23 +30,23 @@ export const TablaComposicion = ({ porcentajes, masas, densidad }) => {
                   Masa grasa
                 </td>
                 <td>
-                  { porcentajes.masa_grasa.toFixed(2) } %
+                  { percentages.fat_mass.toFixed(2) } %
                 </td>
                 <td>
       
-                  { masas.masa_grasa.toFixed(2) } kg
+                  { masses.fat_mass.toFixed(2) } kg
                 </td>
               </tr>
               <tr className='border-y'>
                 <td className='p-2'>
-                  Masa osea
+                  Masa ósea
                 </td>
                 <td>
       
-                  { porcentajes.masa_osea.toFixed(2) } %
+                  { percentages.bone_mass.toFixed(2) } %
                 </td>
                 <td>
-                  { masas.masa_osea.toFixed(2) } kg
+                  { masses.bone_mass.toFixed(2) } kg
                 </td>
               </tr>
               <tr className='border-y'>
@@ -55,10 +55,10 @@ export const TablaComposicion = ({ porcentajes, masas, densidad }) => {
                 </td>
                 <td>
       
-                  { porcentajes.masa_residual } %
+                  { percentages.residual_mass.toFixed(2) } %
                 </td>
                 <td>
-                  { masas.masa_residual.toFixed(2) } kg
+                  { masses.residual_mass.toFixed(2) } kg
                 </td>
               </tr>
               <tr>
@@ -66,15 +66,15 @@ export const TablaComposicion = ({ porcentajes, masas, densidad }) => {
                   Masa muscular
                 </td>
                 <td>
-                  { porcentajes.masa_muscular.toFixed(2) } %
+                  { percentages.muscular_mass.toFixed(2) } %
                 </td>
                 <td>
-                  { masas.masa_muscular.toFixed(2) } kg
+                  { masses.muscular_mass.toFixed(2) } kg
                 </td>
               </tr>
             </tbody>
           </table>
-          <span className='p-2 font-bold'> Densidad corporal: { densidad.toFixed(3) } </span>
+          <span className='p-2 font-bold'> Densidad corporal: { density.toFixed(3) } </span>
         </div>
 
        

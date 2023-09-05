@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 
-export const FormularioCompCorporal = ({ calcularDensidad }) => {
+export const Form = ({ calculateDensity }) => {
     const [inputValues, setInputValues] = useState({
-        genero: '',
-        peso: '',
-        talla: '',
-        edad: '',
+        gender: '',
+        weight: '',
+        size: '',
+        age: '',
         bicep: '',
         tricep: '',
         subscapular: '',
-        supraileaco: '',
+        suprailiac: '',
         femur: '',
-        bistiloideo: ''
+        bistyloid: ''
       })
 
       const handleInputChange = (e) => {
@@ -32,7 +32,7 @@ export const FormularioCompCorporal = ({ calcularDensidad }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        calcularDensidad( inputValues )
+        calculateDensity( inputValues )
 
     }
 
@@ -54,12 +54,12 @@ export const FormularioCompCorporal = ({ calcularDensidad }) => {
 
                       <div className='flex flex-row space-x-2'>
                         <label className='font-normal' htmlFor="genero-hombre">Masculino</label>
-                        <input className='form-input ' type="radio"  name='genero' value='hombre' required onChange={handleInputChange} />
+                        <input className='form-input ' type="radio"  name='gender' value='hombre' required onChange={handleInputChange} />
                       </div>
 
                       <div className='flex flex-row space-x-2'>
                         <label className='font-normal' htmlFor="genero-mujer">Femenino</label>
-                        <input className='form-input ' type="radio"  name='genero' value='mujer' required onChange={handleInputChange}  />
+                        <input className='form-input ' type="radio"  name='gender' value='mujer' required onChange={handleInputChange}  />
                       </div>
 
                     </div>
@@ -69,19 +69,19 @@ export const FormularioCompCorporal = ({ calcularDensidad }) => {
                                
                     <div className='flex flex-col relative'>
                       <label htmlFor="peso">Peso</label>
-                      <input className='form-input' type="number" name='peso' value={inputValues.peso} placeholder='Ingrese su peso' required onChange={handleInputChange}/>
+                      <input className='form-input' type="number" name='weight' value={inputValues.weight} placeholder='Ingrese su peso' required onChange={handleInputChange}/>
                       <span className="input-extent">kg</span>
                     </div>
                                
                     <div className='flex flex-col relative'>
                       <label htmlFor="talla">Talla</label>
-                      <input className='form-input' type="number" name='talla' value={inputValues.talla} placeholder='Ingrese su talla' required onChange={handleInputChange}/>
+                      <input className='form-input' type="number" name='size' value={inputValues.size} placeholder='Ingrese su talla' required onChange={handleInputChange}/>
                       <span className="input-extent">m</span>
                     </div>
                                
                     <div className='flex flex-col'>
                       <label htmlFor="edad">Edad</label>
-                      <input className='form-input' type="number" name='edad' value={inputValues.edad} placeholder='Ingrese su edad' required onChange={handleInputChange}/>
+                      <input className='form-input' type="number" name='age' value={inputValues.age} placeholder='Ingrese su edad' required onChange={handleInputChange}/>
                     </div>
 
                     
@@ -110,7 +110,7 @@ export const FormularioCompCorporal = ({ calcularDensidad }) => {
                      </div>
                       <div className='flex flex-col relative'>
                         <label htmlFor='supraileaco'>Supraileaco</label>
-                        <input className='form-input' type="number" name='supraileaco' value={inputValues.supraileaco} required onChange={handleInputChange}/>
+                        <input className='form-input' type="number" name='suprailiac' value={inputValues.suprailiac} required onChange={handleInputChange}/>
                         <span className="input-extent">mm</span>
                       </div>
 
@@ -122,7 +122,7 @@ export const FormularioCompCorporal = ({ calcularDensidad }) => {
 
                     <div className='flex flex-col relative'>
                        <label htmlFor='bistiloideo'>Biestiloideo</label>
-                       <input className='form-input' type="number" name='bistiloideo' value={inputValues.bistiloideo} required onChange={handleInputChange}/>
+                       <input className='form-input' type="number" name='bistyloid' value={inputValues.bistyloid} required onChange={handleInputChange}/>
                        <span className="input-extent">cm</span>
                      </div>
 

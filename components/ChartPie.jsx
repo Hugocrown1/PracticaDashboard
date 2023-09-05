@@ -5,7 +5,9 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 
 
-export const ChartPie = ({ porcentajes }) => {
+export const ChartPie = ({ percentages }) => {
+
+  
   
   const chartRef = useRef(null);
 
@@ -13,7 +15,7 @@ export const ChartPie = ({ porcentajes }) => {
 
     
     useEffect(() => {
-      const {masa_grasa, masa_osea, masa_residual, masa_muscular} = porcentajes
+      const {fat_mass, bone_mass, residual_mass, muscular_mass} = percentages
    
     
     const ctx = document.getElementById('myChart');
@@ -25,10 +27,10 @@ export const ChartPie = ({ porcentajes }) => {
      const newChart = new Chart(ctx, {
       type: 'pie',
       data: {
-        labels: ['Masa grasa', 'Masa osea', 'Masa residual', 'Masa muscular'],
+        labels: ['Masa grasa', 'Masa ósea', 'Masa residual', 'Masa muscular'],
         datasets: [{
           label: '% Porcentaje',
-          data: [masa_grasa.toFixed(2), masa_osea.toFixed(2), masa_residual, masa_muscular.toFixed(2)],
+          data: [fat_mass.toFixed(2), bone_mass.toFixed(2), residual_mass.toFixed(2), muscular_mass.toFixed(2)],
           backgroundColor: ['#ffecc1', '#96e5ff', '#b8f7e6', '#f3c9d3'],
           borderColor: ['#ffd166', '#118ab2', '#06d6a0', '#ef476f'],
           borderWidth: 1.5,
@@ -57,7 +59,7 @@ export const ChartPie = ({ porcentajes }) => {
     });
 
     chartRef.current = newChart;
-    }, [porcentajes])
+    }, [percentages])
     
     
   return (
