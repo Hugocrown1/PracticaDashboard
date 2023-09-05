@@ -12,6 +12,7 @@
     "@tabler/icons-react": "^2.32.0",
     "autoprefixer": "10.4.15",
     "chart.js": "^4.4.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "next": "13.4.19",
     "postcss": "8.4.28",
     "react": "18.2.0",

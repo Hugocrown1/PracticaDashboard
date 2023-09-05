@@ -1,9 +1,12 @@
 import React, { useEffect, useRef} from 'react'
 import { Chart } from 'chart.js/auto';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 
 
 
 export const ChartPie = ({ porcentajes }) => {
+  
   const chartRef = useRef(null);
 
 
@@ -26,15 +29,24 @@ export const ChartPie = ({ porcentajes }) => {
         datasets: [{
           label: '% Porcentaje',
           data: [masa_grasa.toFixed(2), masa_osea.toFixed(2), masa_residual, masa_muscular.toFixed(2)],
-          backgroundColor: ['yellow', 'aqua', 'pink', 'lightgreen'],
-          borderWidth: 1,
-          hoverOffset: 10
+          backgroundColor: ['#ffecc1', '#96e5ff', '#b8f7e6', '#f3c9d3'],
+          borderColor: ['#ffd166', '#118ab2', '#06d6a0', '#ef476f'],
+          borderWidth: 1.5,
+          hoverOffset: 15,
+          
+          
+          
         }]
       },
+      plugins: [ChartDataLabels],
       options: {
         
+        
         plugins: {
-          
+          datalabels:{
+            font: 'bold',
+            formatter: ( value ) => value + '%'
+          },
           subtitle: {
               display: true,
               text: 'Porcentajes de grasa corporal'
