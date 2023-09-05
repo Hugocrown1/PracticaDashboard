@@ -1,10 +1,18 @@
 'use client'
 
+import { ChartPie } from '@/components/ChartPie'
 import { FormularioCompCorporal } from '@/components/FormularioCompCorporal'
 import { TablaComposicion } from '@/components/TablaComposicion'
-import React, { useState } from 'react'
+
+import React, { useEffect, useState } from 'react'
 
 export const Densidad = () => {
+  
+
+ 
+
+ 
+
 
 
   const [densidad, setDensidad] = useState(null)
@@ -87,7 +95,14 @@ export const Densidad = () => {
      <FormularioCompCorporal calcularDensidad={calcularDensidad}/>
 
 
-     { densidad &&  <TablaComposicion porcentajes={porcentajes} masas={masas} densidad={densidad}/> }
+     { densidad && 
+      
+        <div className='flex flex-col items-center justify-center h-fit'>
+          <TablaComposicion porcentajes={porcentajes} masas={masas} densidad={densidad}/>
+          <ChartPie porcentajes={porcentajes}/>
+        </div>
+        
+      }
     </div>
   )
 }
