@@ -4,24 +4,35 @@ import { ChartPie } from "@/components/ChartPie";
 import { Form } from "@/components/Form";
 import { Table } from "@/components/Table";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const Density = () => {
-  const [density, setDensity] = useState(null);
+  const [density, setDensity] = useState();
 
-  const [percentages, setPercentages] = useState({
-    bone_mass: null,
-    fat_mass: null,
-    residual_mass: null,
-    muscular_mass: null,
-  });
+  const [showResults, setShowResults] = useState(false)
 
-  const [masses, setMasses] = useState({
-    bone_mass: null,
-    fat_mass: null,
-    residual_mass: null,
-    muscular_mass: null,
-  });
+  const [percentages, setPercentages] = useState({});
+
+  const [masses, setMasses] = useState({});
+
+
+  useEffect(() => {
+    const userData = JSON.parse(window.localStorage.getItem('userFormData'));
+  
+    if (!userData) {
+      return;
+    }
+  
+    setMasses(userData.user_masses);
+    setPercentages(userData.user_percentages);
+    setDensity(userData.user_density);
+    setShowResults(true);
+  }, []);
+  
+  
+
+
+
 
   const calculateDensity = (inputValues) => {
     const {
@@ -58,7 +69,7 @@ export const Density = () => {
       return { bodyDensity, residual };
     };
 
-    const densityAndMass = () => {
+    
       const { bodyDensity, residual } = calculateDensityAndResidual();
       setDensity(bodyDensity);
 
@@ -74,39 +85,56 @@ export const Density = () => {
       const muscularMassKilos =
         weight - (fatMassKilos + calculateBoneMass() + residual);
 
-      setMasses((prevValues) => ({
-        ...prevValues,
+
+
+      const calculatedMasses = {
         bone_mass: calculateBoneMass(),
         fat_mass: fatMassKilos,
         muscular_mass: muscularMassKilos,
         residual_mass: residual,
-      }));
+      }
+      setMasses(calculatedMasses);
 
-      setPercentages((prevValues) => ({
-        ...prevValues,
+      const calculatedPercentages = {
         bone_mass: boneMassPercentage,
         fat_mass: fat,
         muscular_mass: muscularMassPercentage,
         residual_mass: residualMassPercentage,
-      }));
-    };
+      }
+      setPercentages(calculatedPercentages);
+    
 
-    densityAndMass();
+    
+
+    window.localStorage.setItem('userFormData', JSON.stringify(
+      { user_masses:{...calculatedMasses},
+        user_percentages:{...calculatedPercentages},
+        user_density: bodyDensity
+      }))
+
+    setShowResults(true)
   };
+
+  const resetResults = () => {
+    setMasses({})
+    setPercentages({})
+    setDensity(0)
+
+    setShowResults(false)
+
+    
+  }
 
   return (
     <div className="grid grid-cols-2 gap-x-6 bg-[#76e8ff] items-center justify-center p-8 h-screen">
-      <Form calculateDensity={calculateDensity} />
+      <Form calculateDensity={calculateDensity} resetResults={resetResults} />
 
-      {density && (
-        <div className="flex flex-row gap-y-2 p-4 justify-between  bg-white rounded-md">
-          
-
+      {showResults && (
+        <div className="flex flex-row gap-y-2 p-4 justify-between  bg-[#f9fcff] rounded-md">
           
             <Table percentages={percentages} masses={masses} density={density} />
             <ChartPie percentages={percentages} />
-         
-          
+      
         </div>
       )}
     </div>

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export const Form = ({ calculateDensity }) => {
-  const [inputValues, setInputValues] = useState({
+export const Form = ({ calculateDensity, resetResults }) => {
+  const initialStateValues = {
     gender: "",
     weight: "",
     size: "",
@@ -12,7 +12,24 @@ export const Form = ({ calculateDensity }) => {
     suprailiac: "",
     femur: "",
     bistyloid: "",
-  });
+  }
+
+  const [inputValues, setInputValues] = useState(initialStateValues);
+
+  useEffect(() => {
+    const userInputs = JSON.parse(window.localStorage.getItem('userInputsValues'))
+    const form = document.getElementById('form');
+
+    if(!userInputs){
+      return
+    }
+
+    userInputs.gender === 'hombre' ? form.elements[0].checked = true : form.elements[1].checked = true
+    
+    setInputValues({...userInputs})
+    
+  }, [])
+  
 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
@@ -33,13 +50,42 @@ export const Form = ({ calculateDensity }) => {
     e.preventDefault();
 
     calculateDensity(inputValues);
+    window.localStorage.setItem(
+      'userInputsValues', JSON.stringify({...inputValues})
+    )
   };
 
+  const handleReset = (e) => {
+    e.preventDefault();
+
+    if(window.confirm('¿Seguro que quiere restablecer los resultados?')){
+    //Desmarcar casillas
+    e.target.elements[0].checked = false
+    e.target.elements[1].checked = false
+
+    //Se establecen los valores predeterminados
+    setInputValues(initialStateValues)
+
+    //Se borra el local storage
+    window.localStorage.removeItem('userInputsValues')
+    window.localStorage.removeItem('userFormData')
+
+    //Se reinicia el estado de la pagina principal
+    resetResults()
+    }
+
+
+
+
+
+    
+  }
+
   return (
-    <div className="bg-[#ffff] text-black rounded-md w-full h-fit mx-auto px-6 py-4 shadow-lg">
+    <div className="bg-[#f9fcff] text-black rounded-md w-full h-fit mx-auto px-6 py-4 shadow-lg">
       <h1 className="text-xl font-bold mb-5">Composición corporal</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form id="form" onSubmit={handleSubmit} onReset={handleReset}>
         {/* Datos personales */}
         <h2 className="font-medium text-gray-500 mb-2">Datos Personales</h2>
         <div className="grid grid-cols-2 gap-x-6 gap-y-2 mb-4 font-bold">
@@ -128,6 +174,7 @@ export const Form = ({ calculateDensity }) => {
               type="number"
               name="bicep"
               value={inputValues.bicep}
+              placeholder="Medida de bicipital"
               required
               onChange={handleInputChange}
             />
@@ -141,6 +188,7 @@ export const Form = ({ calculateDensity }) => {
               type="number"
               name="tricep"
               value={inputValues.tricep}
+              placeholder="Medida de tricipital"
               required
               onChange={handleInputChange}
             />
@@ -153,6 +201,7 @@ export const Form = ({ calculateDensity }) => {
               type="number"
               name="subscapular"
               value={inputValues.subscapular}
+              placeholder="Medida de subscapular"
               required
               onChange={handleInputChange}
             />
@@ -165,6 +214,7 @@ export const Form = ({ calculateDensity }) => {
               type="number"
               name="suprailiac"
               value={inputValues.suprailiac}
+              placeholder="Medida de supraileaco"
               required
               onChange={handleInputChange}
             />
@@ -178,6 +228,7 @@ export const Form = ({ calculateDensity }) => {
               type="number"
               name="femur"
               value={inputValues.femur}
+              placeholder="Medida del femur"
               required
               onChange={handleInputChange}
             />
@@ -191,6 +242,7 @@ export const Form = ({ calculateDensity }) => {
               type="number"
               name="bistyloid"
               value={inputValues.bistyloid}
+              placeholder="Medida del biestiloideo"
               required
               onChange={handleInputChange}
             />
@@ -199,10 +251,17 @@ export const Form = ({ calculateDensity }) => {
         </div>
 
         <button
-          className="mt-4 p-2 bg-[#003459] text-white rounded-md"
+          className="mt-4 mr-3 p-2 bg-[#003459] text-white rounded-md"
           type="submit"
         >
           Calcular
+        </button>
+
+        <button
+          className="mt-4 p-2 bg-[#702222] text-white rounded-md"
+          type="reset"
+        >
+          Limpiar
         </button>
       </form>
     </div>
