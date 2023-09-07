@@ -11,25 +11,25 @@ const lato = Lato({ subsets: ["latin"], weight: ["700"] });
 
 const menuRoutes = [
   {
-    ruta: "/",
-    nombre: "INICIO",
-    icono: <IconArmchair2 size={21} />,
+    route: "/",
+    name: "INICIO",
+    icon: <IconArmchair2 size={21} />,
   },
   {
-    ruta: "/about",
-    nombre: "ACERCA DE",
-    icono: <IconInfoHexagon size={21} />,
+    route: "/about",
+    name: "ACERCA DE",
+    icon: <IconInfoHexagon size={21} />,
   },
   {
-    ruta: "/densidad",
-    nombre: "COMPOSICIÓN CORPORAL",
-    icono: <IconBarbell />,
+    route: "/densidad",
+    name: "COMPOSICIÓN CORPORAL",
+    icon: <IconBarbell />,
   },
 ];
 
 function Menu() {
   return (
-    <div className="text-[#fff] w-fit h-screen  bg-[#000814] text-left p-3 flex flex-col gap-y-1">
+    <div className="text-[#fff] w-1/4 lg:w-fit h-screen  bg-[#000814] text-left p-3 flex flex-col gap-y-1">
       <h1
         className={`mb-2 text-xl font-semibold text-center ${lato.className}`}
       >
@@ -38,17 +38,18 @@ function Menu() {
 
       <ul>
         {menuRoutes.map((menu, index) => (
-          <Link href={menu.ruta}>
-            <li
+          <li>
+            <Link
+              href={menu.route}
               className="flex flex-row gap-x-2 my-1 p-2 w-full items-center rounded-md hover:bg-[#cecece46]"
               key={index}
             >
-              {menu.icono}{" "}
-              <span className={`whitespace-nowrap ${lato.className}`}>
-                {menu.nombre}
+              {menu.icon}{" "}
+              <span className={` lg:whitespace-nowrap ${lato.className}`}>
+                {menu.name}
               </span>
-            </li>
-          </Link>
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

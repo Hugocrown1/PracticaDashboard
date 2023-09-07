@@ -9,30 +9,24 @@ import React, { useEffect, useState } from "react";
 export const Density = () => {
   const [density, setDensity] = useState();
 
-  const [showResults, setShowResults] = useState(false)
+  const [showResults, setShowResults] = useState(false);
 
   const [percentages, setPercentages] = useState({});
 
   const [masses, setMasses] = useState({});
 
-
   useEffect(() => {
-    const userData = JSON.parse(window.localStorage.getItem('userFormData'));
-  
+    const userData = JSON.parse(window.localStorage.getItem("userFormData"));
+
     if (!userData) {
       return;
     }
-  
+
     setMasses(userData.user_masses);
     setPercentages(userData.user_percentages);
     setDensity(userData.user_density);
     setShowResults(true);
   }, []);
-  
-  
-
-
-
 
   const calculateDensity = (inputValues) => {
     const {
@@ -69,72 +63,65 @@ export const Density = () => {
       return { bodyDensity, residual };
     };
 
-    
-      const { bodyDensity, residual } = calculateDensityAndResidual();
-      setDensity(bodyDensity);
+    const { bodyDensity, residual } = calculateDensityAndResidual();
+    setDensity(bodyDensity);
 
-      //percentage
-      const fat = 495 / bodyDensity - 450;
-      const boneMassPercentage = (calculateBoneMass() * 100) / weight;
-      const residualMassPercentage = (residual * 100) / weight;
-      const muscularMassPercentage =
-        100 - (fat + boneMassPercentage + residualMassPercentage);
+    //percentage
+    const fat = 495 / bodyDensity - 450;
+    const boneMassPercentage = (calculateBoneMass() * 100) / weight;
+    const residualMassPercentage = (residual * 100) / weight;
+    const muscularMassPercentage =
+      100 - (fat + boneMassPercentage + residualMassPercentage);
 
-      //masses
-      const fatMassKilos = weight * (fat / 100);
-      const muscularMassKilos =
-        weight - (fatMassKilos + calculateBoneMass() + residual);
+    //masses
+    const fatMassKilos = weight * (fat / 100);
+    const muscularMassKilos =
+      weight - (fatMassKilos + calculateBoneMass() + residual);
 
+    const calculatedMasses = {
+      bone_mass: calculateBoneMass(),
+      fat_mass: fatMassKilos,
+      muscular_mass: muscularMassKilos,
+      residual_mass: residual,
+    };
+    setMasses(calculatedMasses);
 
+    const calculatedPercentages = {
+      bone_mass: boneMassPercentage,
+      fat_mass: fat,
+      muscular_mass: muscularMassPercentage,
+      residual_mass: residualMassPercentage,
+    };
+    setPercentages(calculatedPercentages);
 
-      const calculatedMasses = {
-        bone_mass: calculateBoneMass(),
-        fat_mass: fatMassKilos,
-        muscular_mass: muscularMassKilos,
-        residual_mass: residual,
-      }
-      setMasses(calculatedMasses);
+    window.localStorage.setItem(
+      "userFormData",
+      JSON.stringify({
+        user_masses: { ...calculatedMasses },
+        user_percentages: { ...calculatedPercentages },
+        user_density: bodyDensity,
+      })
+    );
 
-      const calculatedPercentages = {
-        bone_mass: boneMassPercentage,
-        fat_mass: fat,
-        muscular_mass: muscularMassPercentage,
-        residual_mass: residualMassPercentage,
-      }
-      setPercentages(calculatedPercentages);
-    
-
-    
-
-    window.localStorage.setItem('userFormData', JSON.stringify(
-      { user_masses:{...calculatedMasses},
-        user_percentages:{...calculatedPercentages},
-        user_density: bodyDensity
-      }))
-
-    setShowResults(true)
+    setShowResults(true);
   };
 
   const resetResults = () => {
-    setMasses({})
-    setPercentages({})
-    setDensity(0)
+    setMasses({});
+    setPercentages({});
+    setDensity(0);
 
-    setShowResults(false)
-
-    
-  }
+    setShowResults(false);
+  };
 
   return (
-    <div className="grid grid-cols-2 gap-x-6 bg-[#76e8ff] items-center justify-center p-8 h-screen">
+    <div className="grid grid-cols-1 gap-x-6 bg-[#76e8ff] items-center justify-center p-8 h-screen lg:grid-cols-2">
       <Form calculateDensity={calculateDensity} resetResults={resetResults} />
 
       {showResults && (
         <div className="flex flex-row gap-y-2 p-4 justify-between  bg-[#f9fcff] rounded-md">
-          
-            <Table percentages={percentages} masses={masses} density={density} />
-            <ChartPie percentages={percentages} />
-      
+          <Table percentages={percentages} masses={masses} density={density} />
+          <ChartPie percentages={percentages} />
         </div>
       )}
     </div>

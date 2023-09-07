@@ -7,11 +7,11 @@
   }
 
 .form-input {
-    @apply bg-gray-50 border ring-blue-500 border-gray-300  text-sm font-normal rounded-lg  block w-full p-2.5 outline-none dark:focus:ring-blue-500 dark:focus:border-blue-500
+    @apply bg-gray-50 border ring-blue-500 border-gray-300 min-w-fit  text-sm font-normal rounded-lg  block w-full p-2.5 outline-none dark:focus:ring-blue-500 dark:focus:border-blue-500
 }
 
 .input-extent {
-    @apply absolute inset-y-2 right-6 font-normal text-sm text-gray-400 flex items-end
+    @apply absolute inset-y-2 right-6 font-normal text-sm text-black flex items-end
 }
 
   @keyframes float {
@@ -28,4 +28,3 @@
         animation: float 4s infinite;
     }
 }
-

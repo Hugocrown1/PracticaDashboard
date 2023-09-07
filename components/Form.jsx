@@ -12,24 +12,26 @@ export const Form = ({ calculateDensity, resetResults }) => {
     suprailiac: "",
     femur: "",
     bistyloid: "",
-  }
+  };
 
   const [inputValues, setInputValues] = useState(initialStateValues);
 
   useEffect(() => {
-    const userInputs = JSON.parse(window.localStorage.getItem('userInputsValues'))
-    const form = document.getElementById('form');
+    const userInputs = JSON.parse(
+      window.localStorage.getItem("userInputsValues")
+    );
+    const form = document.getElementById("form");
 
-    if(!userInputs){
-      return
+    if (!userInputs) {
+      return;
     }
 
-    userInputs.gender === 'hombre' ? form.elements[0].checked = true : form.elements[1].checked = true
-    
-    setInputValues({...userInputs})
-    
-  }, [])
-  
+    userInputs.gender === "hombre"
+      ? (form.elements[0].checked = true)
+      : (form.elements[1].checked = true);
+
+    setInputValues({ ...userInputs });
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
@@ -51,35 +53,30 @@ export const Form = ({ calculateDensity, resetResults }) => {
 
     calculateDensity(inputValues);
     window.localStorage.setItem(
-      'userInputsValues', JSON.stringify({...inputValues})
-    )
+      "userInputsValues",
+      JSON.stringify({ ...inputValues })
+    );
   };
 
   const handleReset = (e) => {
     e.preventDefault();
 
-    if(window.confirm('¿Seguro que quiere restablecer los resultados?')){
-    //Desmarcar casillas
-    e.target.elements[0].checked = false
-    e.target.elements[1].checked = false
+    if (window.confirm("¿Seguro que quiere restablecer los resultados?")) {
+      //Desmarcar casillas
+      e.target.elements[0].checked = false;
+      e.target.elements[1].checked = false;
 
-    //Se establecen los valores predeterminados
-    setInputValues(initialStateValues)
+      //Se establecen los valores predeterminados
+      setInputValues(initialStateValues);
 
-    //Se borra el local storage
-    window.localStorage.removeItem('userInputsValues')
-    window.localStorage.removeItem('userFormData')
+      //Se borra el local storage
+      window.localStorage.removeItem("userInputsValues");
+      window.localStorage.removeItem("userFormData");
 
-    //Se reinicia el estado de la pagina principal
-    resetResults()
+      //Se reinicia el estado de la pagina principal
+      resetResults();
     }
-
-
-
-
-
-    
-  }
+  };
 
   return (
     <div className="bg-[#f9fcff] text-black rounded-md w-full h-fit mx-auto px-6 py-4 shadow-lg">
@@ -94,7 +91,7 @@ export const Form = ({ calculateDensity, resetResults }) => {
 
             <div className="flex gap-x-6 justify-center items-center pt-2">
               <div className="flex flex-row space-x-2">
-                <label className="font-normal" htmlFor="genero-hombre">
+                <label className="font-normal" htmlFor="gender">
                   Masculino
                 </label>
                 <input
@@ -108,7 +105,7 @@ export const Form = ({ calculateDensity, resetResults }) => {
               </div>
 
               <div className="flex flex-row space-x-2">
-                <label className="font-normal" htmlFor="genero-mujer">
+                <label className="font-normal" htmlFor="gender">
                   Femenino
                 </label>
                 <input
@@ -124,7 +121,7 @@ export const Form = ({ calculateDensity, resetResults }) => {
           </div>
 
           <div className="flex flex-col relative">
-            <label htmlFor="peso">Peso</label>
+            <label htmlFor="weight">Peso</label>
             <input
               className="form-input"
               type="number"
@@ -138,7 +135,7 @@ export const Form = ({ calculateDensity, resetResults }) => {
           </div>
 
           <div className="flex flex-col relative">
-            <label htmlFor="talla">Talla</label>
+            <label htmlFor="size">Talla</label>
             <input
               className="form-input"
               type="number"
@@ -152,7 +149,7 @@ export const Form = ({ calculateDensity, resetResults }) => {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="edad">Edad</label>
+            <label htmlFor="age">Edad</label>
             <input
               className="form-input"
               type="number"
@@ -208,7 +205,7 @@ export const Form = ({ calculateDensity, resetResults }) => {
             <span className="input-extent">mm</span>
           </div>
           <div className="flex flex-col relative">
-            <label htmlFor="supraileaco">Supraileaco</label>
+            <label htmlFor="suprailiac">Supraileaco</label>
             <input
               className="form-input"
               type="number"
@@ -236,7 +233,7 @@ export const Form = ({ calculateDensity, resetResults }) => {
           </div>
 
           <div className="flex flex-col relative">
-            <label htmlFor="bistiloideo">Biestiloideo</label>
+            <label htmlFor="bistyloid">Biestiloideo</label>
             <input
               className="form-input"
               type="number"
