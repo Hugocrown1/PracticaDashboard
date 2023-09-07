@@ -199,7 +199,7 @@ export const Form = ({ calculateDensity }) => {
         </div>
 
         <button
-          className="mt-4 p-2 bg-[#00b4d8] text-black rounded-md"
+          className="mt-4 p-2 bg-[#003459] text-white rounded-md"
           type="submit"
         >
           Calcular

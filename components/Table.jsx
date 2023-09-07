@@ -2,7 +2,7 @@ import React from "react";
 
 export const Table = ({ percentages, masses, density }) => {
   return (
-    <div className="w-4/6 bg-white h-fit p-4 rounded-md">
+    <div className="w-4/6  h-fit p-4">
       <h1 className="text-xl font-bold mb-2">Resultados</h1>
 
       <table className="table-auto w-full text-left items-center border-collapse border-y mb-2 ">

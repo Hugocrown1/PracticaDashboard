@@ -95,13 +95,18 @@ export const Density = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-x-6 bg-[#003459] items-center justify-center p-8 h-screen">
+    <div className="grid grid-cols-2 gap-x-6 bg-[#76e8ff] items-center justify-center p-8 h-screen">
       <Form calculateDensity={calculateDensity} />
 
       {density && (
-        <div className="flex flex-col gap-y-4">
-          <ChartPie percentages={percentages} />
-          <Table percentages={percentages} masses={masses} density={density} />
+        <div className="flex flex-row gap-y-2 p-4 justify-between  bg-white rounded-md">
+          
+
+          
+            <Table percentages={percentages} masses={masses} density={density} />
+            <ChartPie percentages={percentages} />
+         
+          
         </div>
       )}
     </div>

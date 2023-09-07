@@ -15,7 +15,7 @@ export const ChartPie = ({ percentages }) => {
     }
 
     const newChart = new Chart(ctx, {
-      type: "pie",
+      type: 'pie',
       data: {
         labels: ["Masa grasa", "Masa ósea", "Masa residual", "Masa muscular"],
         datasets: [
@@ -53,8 +53,8 @@ export const ChartPie = ({ percentages }) => {
   }, [percentages]);
 
   return (
-    <div className="relative w-4/6 h-auto rounded-md bg-white flex flex-col p-4 my-auto">
-      <h1 className="text-xl font-bold mb-2">Gráfica de pastel</h1>
+    <div className=" w-3/6  ">
+      
 
       <canvas id="myChart"></canvas>
     </div>
