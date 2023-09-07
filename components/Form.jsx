@@ -91,28 +91,30 @@ export const Form = ({ calculateDensity, resetResults }) => {
 
             <div className="flex gap-x-6 justify-center items-center pt-2">
               <div className="flex flex-row space-x-2">
-                <label className="font-normal" htmlFor="gender">
+                <label className="font-normal" htmlFor="male">
                   Masculino
                 </label>
                 <input
                   className="form-input "
+                  id="male"
                   type="radio"
                   name="gender"
-                  value="hombre"
+                  value="male"
                   required
                   onChange={handleInputChange}
                 />
               </div>
 
               <div className="flex flex-row space-x-2">
-                <label className="font-normal" htmlFor="gender">
+                <label className="font-normal" htmlFor="female">
                   Femenino
                 </label>
                 <input
                   className="form-input "
+                  id="female"
                   type="radio"
                   name="gender"
-                  value="mujer"
+                  value="female"
                   required
                   onChange={handleInputChange}
                 />

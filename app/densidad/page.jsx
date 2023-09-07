@@ -54,11 +54,11 @@ export const Density = () => {
 
     const calculateDensityAndResidual = () => {
       const bodyDensity =
-        gender === "hombre"
+        gender === "male"
           ? 1.1765 - 0.0744 * Math.log10(foldsSum)
           : 1.1567 - 0.0717 * Math.log10(foldsSum);
 
-      const residual = gender === "hombre" ? weight * 0.24 : weight * 0.21;
+      const residual = gender === "male" ? weight * 0.24 : weight * 0.21;
 
       return { bodyDensity, residual };
     };
